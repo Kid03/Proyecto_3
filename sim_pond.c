@@ -125,18 +125,15 @@ int cargarDatos (struct facultades faculte[],struct carrera courir[]){
             fscanf(carrera_facultades,"%s",destino);
             if(strcmp(destino,"*")==0){
                 fscanf(carrera_facultades,"%s   ",destino);
-                printf("--->%s \n",destino);
                 while ((strcmp(destino,"<")!=0)||(strcmp(destino,"*")!=0)){
                     if((strcmp(destino,"<")==0)||(strcmp(destino,"*")==0)) break;
                     if(feof(carrera_facultades))break;
                     strcat(faculte[pos_f].nombre,destino);
                     strcat(faculte[pos_f].nombre," ");
                     fscanf(carrera_facultades,"%s   ",destino);
-                    printf("------->%s \n",faculte[pos_f].nombre);
                 }
                 pos_f++;
                 i=0;
-                printf("->%s\n",faculte[pos_f-1].nombre);
             }
             if(strcmp(destino,"<")==0){
                 fscanf(carrera_facultades,"%s",destino);
@@ -145,15 +142,12 @@ int cargarDatos (struct facultades faculte[],struct carrera courir[]){
                     if(feof(carrera_facultades))break;
                     strcat(courir[pos_c].nombre,destino);
                     strcat(courir[pos_c].nombre," ");
-                    printf("******->%s %s\n",destino,courir[pos_c].nombre);
                     fscanf(carrera_facultades,"%s",destino);
                     aux=atoi(destino);
                     courir[pos_c].id=aux;
-                    printf("******%d   %s\n",courir[pos_c].id,destino);
                     fscanf(carrera_facultades,"%s",destino);
                     aux=atoi(destino);
                     courir[pos_c].nem=aux;
-                    printf("****** %d\n",destino);
                     fscanf(carrera_facultades,"%s",destino);
                     aux=atoi(destino);
                     courir[pos_c].rank=aux;
@@ -201,7 +195,27 @@ int cargarDatos (struct facultades faculte[],struct carrera courir[]){
 
 
 void consultaPonderado(struct carrera courir[]){
-    printf("Prueba\n");
+    int i,codigo_n,opcion;
+    printf("|||||Desea buscar por codigo (1) o carrera (2):");
+    scanf("%i",&opcion);
+    if(opcion==1){
+        printf("|||||Ingrese un codigo numerico:\n");
+        getchar();
+        scanf("%d",&codigo_n);
+        while((i<100)){
+            if (codigo_n==courir[i].id){
+                printf("|||||%s \n",courir[i].nombre);
+                printf("|||||Nem:%d||Ranking:%d||Lenguaje:%d||Matematica:%d||(Historia:%d|or|Ciencias:%d)||\n",courir[i].nem,courir[i].rank,courir[i].leng,courir[i].mat,courir[i].hist,courir[i].cs);
+                printf("|||||Ponderacion minima:%d||Ponderacion minima PSU:%d||\n",courir[i].pond,courir[i].psu);
+                printf("|||||Primer matriculado:%f||Ultimo matriculado:%f||\n",courir[i].primo,courir[i].finale);
+                printf("|||||Cupos PSU:%d||Cupos BEA:%|||\n",courir[i].c_psu,courir[i].c_bea);
+                return;
+            }
+            i++;
+        }
+        printf("|||||No se encontraron coincidencias\n");
+    }
+    //else{}
 }
 void simuladorPostulacion(struct carrera courir[]){
     printf("Prueba\n");
@@ -209,3 +223,4 @@ void simuladorPostulacion(struct carrera courir[]){
 void mostrarFacultad(struct facultades faculte[]){
     printf("Prueba\n");
 }
+
