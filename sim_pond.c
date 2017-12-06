@@ -1,9 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
+#include <stdbool.h>
 
-struct carrera{
-    char nombre[1024];
+typedef struct carrera{
+    char nombre[1014];
     int id;
     int nem;
     int rank;
@@ -19,10 +21,10 @@ struct carrera{
     int c_bea;
 }carrera;
 
-struct facultades{
+typedef struct facultades{
     char nombre[1024];
     struct carrera *corsa [30];
-};
+}facultades;
 ///////////// Funciones Principales ///////////////
 void inicializarFacultades(struct facultades universidad[]);
 void inicializarCarreras(struct carrera courir[]);
@@ -34,16 +36,21 @@ void consultaPonderado(struct carrera courir[]);
 void simuladorPostulacion(struct carrera courir[]);
 void mostrarFacultad(struct facultades faculte[]);
 //\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\//
+/////////////    Funciones Extra     //////////////
+
+///////////////////////////////////////////////////
 
 int main (){
     struct facultades UV[20];
     struct carrera uv[100];
     inicializarFacultades(UV);
+    inicializarCarreras(uv);
     if (cargarDatos(UV,uv))menu(UV,uv);
 }
 
 void menu(struct facultades faculte[],struct carrera courir[]){
     int opcion=1;
+    printf("%s;%d;%d,%d",courir[0].nombre,courir[0].id,courir[0].nem,courir[0].rank);
     while (opcion!=4){
         printf("\n|||||******************************************|||||\n");
         printf("|||||Bienvenido a el simulador de postulaciones|||||\n");
@@ -73,15 +80,9 @@ void menu(struct facultades faculte[],struct carrera courir[]){
 }
 
 void inicializarFacultades(struct facultades universidad[]){
-    int i = 0,j = 0;
-    for(i=0;i<20;i++){
-        strcpy(universidad[i].nombre ,"");
-        for (j=0;j<30;j++){
-            universidad[i].corsa[j]=0;
-        }
-    }
+    printf("Prueba\n");
 }
-}
+
 void inicializarCarreras(struct carrera courir[]){
     int i;
     for (i=0;i<100;i++){
@@ -103,7 +104,81 @@ void inicializarCarreras(struct carrera courir[]){
 }
 
 int cargarDatos (struct facultades faculte[],struct carrera courir[]){
-    printf("Prueba\n");
+    int i,pos_f=0,pos_c=0,aux;
+    char destino[1024],flag;
+    FILE *carrera_facultades;
+    strcpy(destino,"ejemplo02.txt");
+    printf("||||| Ingrese la ruta y el archivo de texto: \n");
+    //scanf("%s",destino);
+    carrera_facultades=fopen(destino,"r");
+    if (carrera_facultades==0){
+        printf("|||||Archivo no encontrado");
+        return 0;
+    }
+    else {
+        while (feof(carrera_facultades) == 0) {
+            fscanf(carrera_facultades,"%s",destino);
+            if(strcmp(destino,"*")==0){
+                fscanf(carrera_facultades,"%s   ",destino);
+                while ((strcmp(destino,"<")!=0)||(strcmp(destino,"*")!=0)){
+                    if((strcmp(destino,"<")==0)||(strcmp(destino,"*")==0)) break;
+                    strcat(faculte[pos_f].nombre,destino);
+                    strcat(faculte[pos_f].nombre," ");
+                    fscanf(carrera_facultades,"%s   ",destino);
+                }
+                pos_f++;
+            }
+            if(strcmp(destino,"<")==0){
+                fscanf(carrera_facultades,"%s",destino);
+                while ((strcmp(destino,"<")!=0)||(strcmp(destino,"*")!=0)){
+                    if((strcmp(destino,"<")==0)||(strcmp(destino,"*")==0)) break;
+                    if(!feof(carrera_facultades))break;
+                    strcat(courir[pos_c].nombre,destino);
+                    strcat(courir[pos_c].nombre," ");
+                    fscanf(carrera_facultades,"%s",destino);
+                    aux=atoi(destino);
+                    courir[pos_c].id=aux;
+                    fscanf(carrera_facultades,"%s",destino);
+                    aux=atoi(destino);
+                    courir[pos_c].nem=aux;
+                    fscanf(carrera_facultades,"%s",destino);
+                    aux=atoi(destino);
+                    courir[pos_c].rank=aux;
+                    fscanf(carrera_facultades,"%s",destino);
+                    aux=atoi(destino);
+                    courir[pos_c].leng=aux;
+                    fscanf(carrera_facultades,"%s",destino);
+                    aux=atoi(destino);
+                    courir[pos_c].mat=aux;
+                    fscanf(carrera_facultades,"%s",destino);
+                    aux=atoi(destino);
+                    courir[pos_c].hist=aux;
+                    fscanf(carrera_facultades,"%s",destino);
+                    aux=atoi(destino);
+                    courir[pos_c].cs=aux;
+                    fscanf(carrera_facultades,"%s",destino);
+                    aux=atoi(destino);
+                    courir[pos_c].pond=aux;
+                    fscanf(carrera_facultades,"%s",destino);
+                    aux=atoi(destino);
+                    courir[pos_c].psu=aux;
+                    fscanf(carrera_facultades,"%s",destino);
+                    aux=atoi(destino);
+                    courir[pos_c].primo=aux;
+                    fscanf(carrera_facultades,"%s",destino);
+                    aux=atoi(destino);
+                    courir[pos_c].finale=aux;
+                    fscanf(carrera_facultades,"%s",destino);
+                    aux=atoi(destino);
+                    courir[pos_c].c_psu=aux;
+                    fscanf(carrera_facultades,"%s",destino);
+                    aux=atoi(destino);
+                    courir[pos_c].c_bea=aux;
+                }
+                pos_c++;
+            }
+        }
+    }
     return 1;
 }
 
