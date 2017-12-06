@@ -50,7 +50,6 @@ int main (){
 
 void menu(struct facultades faculte[],struct carrera courir[]){
     int opcion=1;
-    printf("%s;%d;%d,%d",courir[0].nombre,courir[0].id,courir[0].nem,courir[0].rank);
     while (opcion!=4){
         printf("\n|||||******************************************|||||\n");
         printf("|||||Bienvenido a el simulador de postulaciones|||||\n");
@@ -80,7 +79,13 @@ void menu(struct facultades faculte[],struct carrera courir[]){
 }
 
 void inicializarFacultades(struct facultades universidad[]){
-    printf("Prueba\n");
+    int i = 0,j = 0;
+    for(i=0;i<20;i++){
+        strcpy(universidad[i].nombre ,"");
+        for (j=0;j<30;j++){
+            universidad[i].corsa[j]=0;
+        }
+    }
 }
 
 void inicializarCarreras(struct carrera courir[]){
@@ -104,7 +109,7 @@ void inicializarCarreras(struct carrera courir[]){
 }
 
 int cargarDatos (struct facultades faculte[],struct carrera courir[]){
-    int i,pos_f=0,pos_c=0,aux;
+    int i=0,pos_f=0,pos_c=0,aux;
     char destino[1024],flag;
     FILE *carrera_facultades;
     strcpy(destino,"ejemplo02.txt");
@@ -120,27 +125,35 @@ int cargarDatos (struct facultades faculte[],struct carrera courir[]){
             fscanf(carrera_facultades,"%s",destino);
             if(strcmp(destino,"*")==0){
                 fscanf(carrera_facultades,"%s   ",destino);
+                printf("--->%s \n",destino);
                 while ((strcmp(destino,"<")!=0)||(strcmp(destino,"*")!=0)){
                     if((strcmp(destino,"<")==0)||(strcmp(destino,"*")==0)) break;
+                    if(feof(carrera_facultades))break;
                     strcat(faculte[pos_f].nombre,destino);
                     strcat(faculte[pos_f].nombre," ");
                     fscanf(carrera_facultades,"%s   ",destino);
+                    printf("------->%s \n",faculte[pos_f].nombre);
                 }
                 pos_f++;
+                i=0;
+                printf("->%s\n",faculte[pos_f-1].nombre);
             }
             if(strcmp(destino,"<")==0){
                 fscanf(carrera_facultades,"%s",destino);
                 while ((strcmp(destino,"<")!=0)||(strcmp(destino,"*")!=0)){
                     if((strcmp(destino,"<")==0)||(strcmp(destino,"*")==0)) break;
-                    if(!feof(carrera_facultades))break;
+                    if(feof(carrera_facultades))break;
                     strcat(courir[pos_c].nombre,destino);
                     strcat(courir[pos_c].nombre," ");
+                    printf("******->%s %s\n",destino,courir[pos_c].nombre);
                     fscanf(carrera_facultades,"%s",destino);
                     aux=atoi(destino);
                     courir[pos_c].id=aux;
+                    printf("******%d   %s\n",courir[pos_c].id,destino);
                     fscanf(carrera_facultades,"%s",destino);
                     aux=atoi(destino);
                     courir[pos_c].nem=aux;
+                    printf("****** %d\n",destino);
                     fscanf(carrera_facultades,"%s",destino);
                     aux=atoi(destino);
                     courir[pos_c].rank=aux;
@@ -174,8 +187,11 @@ int cargarDatos (struct facultades faculte[],struct carrera courir[]){
                     fscanf(carrera_facultades,"%s",destino);
                     aux=atoi(destino);
                     courir[pos_c].c_bea=aux;
+                    pos_c++;
+                    faculte[pos_f].corsa[i]=&courir[pos_c];
+                    i++;
+                    fscanf(carrera_facultades,"%s",destino);
                 }
-                pos_c++;
             }
         }
     }
