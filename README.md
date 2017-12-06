@@ -1,9 +1,26 @@
 # Proyecto_3
 Proyecto 3 de Programacion 1
 
+### 02 ###
+
+# Actualizacion #
+Se actualizan la obtencion de datos, ahora de la forma:
+
+* Nombre_Facultad1
+< Nombre_carrera0 ID Nem Rank Leng Mat Hist CS Pond PSU Primo Finale C_PSU C_Bea
+< Nombre_carrera1 ID Nem Rank Leng Mat Hist CS Pond PSU Primo Finale C_PSU C_Bea
+< Nombre_carrera2 ID Nem Rank Leng Mat Hist CS Pond PSU Primo Finale C_PSU C_Bea
+< Nombre_carrera3 ID Nem Rank Leng Mat Hist CS Pond PSU Primo Finale C_PSU C_Bea
+< Nombre_carrera4 ID Nem Rank Leng Mat Hist CS Pond PSU Primo Finale C_PSU C_Bea
+* Nombre_Facultad2
+- Nombre_carrera5 ID Nem Rank Leng Mat Hist CS Pond PSU Primo Finale C_PSU C_Bea
+- Nombre_carrera6 ID Nem Rank Leng Mat Hist CS Pond PSU Primo Finale C_PSU C_Bea
+
+Ademas, las funciones de inicio esta completamente programadas, solo queda avanzar hacia las funciones de menu.
+
 ### 01 ###
 
-## Inicio ##
+# Inicio #
 Es programa que permite trabajar con un archivo que entrega facultades de una universidad (Por ahora con memoria estatica) para mostrar por pantalla una carrera y sus ponderados, hacer simulaciones de ingreso y mostrar las carreras y sus datos dentro de una misma facultad.
 ### Archivo de datos ###
 El programa pide al usuaria ingresar el nombre del archivo con los datos, los cuales se deben presentar de la siguiente manera:
