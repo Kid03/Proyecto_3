@@ -1,0 +1,6 @@
+*Nombre_Facultad
+-Nombre_carrera;ID;Nem;Rank;Leng;Mat;Hist;CS;Pond;PSU;Primo;Finale;C_PSU;C_Bea
+*Facultad de arquitectura
+-Arquitectura;19020;10;40;20;20;10;0;500;475;728.80;569.90;120;3
+*Facultad de ciencias
+-Ingenieria en estadisticas;19072;10;40;10;30;10;10;500;475;671.08;506.08;30;5
