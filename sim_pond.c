@@ -101,25 +101,7 @@ void inicializarCarreras(struct carrera courir[]){
         courir[i].c_bea=0;
     }
 }
-void inicializarCarreras(struct carrera courir[]){
-    int i;
-    for (i=0;i<100;i++){
-        strcpy(courir[i].nombre,"");
-        courir[i].id=0;
-        courir[i].nem=0;
-        courir[i].rank=0;
-        courir[i].leng=0;
-        courir[i].mat=0;
-        courir[i].hist=0;
-        courir[i].cs=0;//ciencias naturales
-        courir[i].pond=0;
-        courir[i].psu=0;
-        courir[i].primo=0.0;
-        courir[i].finale=0.0;
-        courir[i].c_psu=0;// Cupos PSU
-        courir[i].c_bea=0;
-    }
-}
+
 int cargarDatos (struct facultades faculte[],struct carrera courir[]){
     printf("Prueba\n");
     return 1;
