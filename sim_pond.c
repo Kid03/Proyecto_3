@@ -3,7 +3,7 @@
 #include <string.h>
 
 struct carrera{
-    char nombre[2014];
+    char nombre[1024];
     int id;
     int nem;
     int rank;
