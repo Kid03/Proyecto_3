@@ -3,6 +3,7 @@
 #include <string.h>
 #include <ctype.h>
 #include <stdbool.h>
+#include <conio.h>
 
 typedef struct carrera{
     char nombre[1014];
@@ -112,7 +113,7 @@ int cargarDatos (struct facultades faculte[],struct carrera courir[]){
     int i=0,pos_f=0,pos_c=0,aux;
     char destino[1024],flag;
     FILE *carrera_facultades;
-    strcpy(destino,"ejemplo02.txt");
+    strcpy(destino,"ej04.txt");
     printf("||||| Ingrese la ruta y el archivo de texto: \n");
     //scanf("%s",destino);
     carrera_facultades=fopen(destino,"r");
@@ -145,6 +146,7 @@ int cargarDatos (struct facultades faculte[],struct carrera courir[]){
                     fscanf(carrera_facultades,"%s",destino);
                     aux=atoi(destino);
                     courir[pos_c].id=aux;
+                    printf("--------->> %d",courir[pos_c].id);
                     fscanf(carrera_facultades,"%s",destino);
                     aux=atoi(destino);
                     courir[pos_c].nem=aux;
@@ -170,10 +172,10 @@ int cargarDatos (struct facultades faculte[],struct carrera courir[]){
                     aux=atoi(destino);
                     courir[pos_c].psu=aux;
                     fscanf(carrera_facultades,"%s",destino);
-                    aux=atoi(destino);
+                    aux=atof(destino);
                     courir[pos_c].primo=aux;
                     fscanf(carrera_facultades,"%s",destino);
-                    aux=atoi(destino);
+                    aux=atof(destino);
                     courir[pos_c].finale=aux;
                     fscanf(carrera_facultades,"%s",destino);
                     aux=atoi(destino);
@@ -181,13 +183,14 @@ int cargarDatos (struct facultades faculte[],struct carrera courir[]){
                     fscanf(carrera_facultades,"%s",destino);
                     aux=atoi(destino);
                     courir[pos_c].c_bea=aux;
-                    pos_c++;
                     faculte[pos_f].corsa[i]=&courir[pos_c];
+                    pos_c++;
                     i++;
                     fscanf(carrera_facultades,"%s",destino);
                 }
             }
         }
+    fclose(carrera_facultades);
     }
     return 1;
 }
@@ -195,27 +198,57 @@ int cargarDatos (struct facultades faculte[],struct carrera courir[]){
 
 
 void consultaPonderado(struct carrera courir[]){
-    int i,codigo_n,opcion;
+    int i=0,codigo_n,opcion,j,cont_acierto,aciertos=0;
+    char codigo_c[1024];
+    strcpy(codigo_c,"");
     printf("|||||Desea buscar por codigo (1) o carrera (2):");
     scanf("%i",&opcion);
     if(opcion==1){
         printf("|||||Ingrese un codigo numerico:\n");
-        getchar();
         scanf("%d",&codigo_n);
-        while((i<100)){
+        while((i<100)&&(strcmp(courir[i].nombre,"")!=0)){
             if (codigo_n==courir[i].id){
                 printf("|||||%s \n",courir[i].nombre);
                 printf("|||||Nem:%d||Ranking:%d||Lenguaje:%d||Matematica:%d||(Historia:%d|or|Ciencias:%d)||\n",courir[i].nem,courir[i].rank,courir[i].leng,courir[i].mat,courir[i].hist,courir[i].cs);
                 printf("|||||Ponderacion minima:%d||Ponderacion minima PSU:%d||\n",courir[i].pond,courir[i].psu);
                 printf("|||||Primer matriculado:%f||Ultimo matriculado:%f||\n",courir[i].primo,courir[i].finale);
-                printf("|||||Cupos PSU:%d||Cupos BEA:%|||\n",courir[i].c_psu,courir[i].c_bea);
+                printf("|||||Cupos PSU:%d||Cupos BEA:%d|||\n",courir[i].c_psu,courir[i].c_bea);
                 return;
             }
             i++;
         }
         printf("|||||No se encontraron coincidencias\n");
     }
-    //else{}
+    else{
+        printf("|||||Ingrese nombre de la carrera: ");
+        scanf("%s",codigo_c);
+        while ((i<100)&&(strcmp(courir[i].nombre,"")!=0)){
+            printf("----> %d ; %d \n",strlen(codigo_c),strlen(courir[i].nombre));
+            if(strlen(codigo_c)<=strlen(courir[i].nombre)){
+                j=0;
+                cont_acierto=0;
+                while (j<strlen(codigo_c)){
+                    //if ((tolower(codigo_c[j])==tolower(courir[i].nombre[j]))||(codigo_c[j]==" ")&&(courir[i].nombre[j]=="_")){
+                    if (tolower(codigo_c[j])==tolower(courir[i].nombre[j])){
+                        cont_acierto++;
+                    }
+                    j++;
+                }
+                if (cont_acierto==j){
+                    aciertos++;
+                    printf("|||||%s \n",courir[i].nombre);
+                    printf("|||||Nem:%d||Ranking:%d||Lenguaje:%d||Matematica:%d||(Historia:%d|or|Ciencias:%d)||\n",courir[i].nem,courir[i].rank,courir[i].leng,courir[i].mat,courir[i].hist,courir[i].cs);
+                    printf("|||||Ponderacion minima:%d||Ponderacion minima PSU:%d||\n",courir[i].pond,courir[i].psu);
+                    printf("|||||Primer matriculado:%f||Ultimo matriculado:%f||\n",courir[i].primo,courir[i].finale);
+                    printf("|||||Cupos PSU:%d||Cupos BEA:%d|||\n",courir[i].c_psu,courir[i].c_bea);
+                }
+            }
+            i++;
+        }
+        if (aciertos==0){
+            printf("|||||Busqueda sin resultados...");
+        }
+    }
 }
 void simuladorPostulacion(struct carrera courir[]){
     printf("Prueba\n");
@@ -223,4 +256,3 @@ void simuladorPostulacion(struct carrera courir[]){
 void mostrarFacultad(struct facultades faculte[]){
     printf("Prueba\n");
 }
-
