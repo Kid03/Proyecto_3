@@ -3,7 +3,6 @@
 #include <string.h>
 #include <ctype.h>
 #include <stdbool.h>
-#include <conio.h>
 
 typedef struct carrera{
     char nombre[1014];
@@ -172,10 +171,10 @@ int cargarDatos (struct facultades faculte[],struct carrera courir[]){
                     aux=atoi(destino);
                     courir[pos_c].psu=aux;
                     fscanf(carrera_facultades,"%s",destino);
-                    aux=atof(destino);
+                    aux=atoi(destino);
                     courir[pos_c].primo=aux;
                     fscanf(carrera_facultades,"%s",destino);
-                    aux=atof(destino);
+                    aux=atoi(destino);
                     courir[pos_c].finale=aux;
                     fscanf(carrera_facultades,"%s",destino);
                     aux=atoi(destino);
@@ -251,7 +250,48 @@ void consultaPonderado(struct carrera courir[]){
     }
 }
 void simuladorPostulacion(struct carrera courir[]){
-    printf("Prueba\n");
+    /*int nem,rank,leng,mat,hist,cs,code,i=0;
+    float postulante=0.0,aux;
+    printf("|||||Ingrese Nem: \n");
+    scanf("%d",&nem);
+    printf("|||||Ingrese Ranking: \n");
+    scanf("%d",&rank);
+    printf("|||||Ingrese Lenguaje y cominicacion: \n");
+    scanf("%d",&leng);
+    printf("|||||Ingrese Matematicas: \n");
+    scanf("%d",&mat);
+    printf("|||||Ingrese Historia: \n");
+    scanf("%d",&hist);
+    printf("|||||Ingrese Ciencias: \n");
+    scanf("%d",&cs);
+    printf("|||||Ingrese un codigo numerico: \n");
+    scanf("%d",&code);
+    while((i<100)&&(strcmp(courir[i].nombre,"")!=0)){
+        if (code==courir[i].id){
+            printf("|||||%s \n",courir[i].nombre);
+            printf("|||||Nem:%d||Ranking:%d||Lenguaje:%d||Matematica:%d||(Historia:%d|or|Ciencias:%d)||\n",courir[i].nem,courir[i].rank,courir[i].leng,courir[i].mat,courir[i].hist,courir[i].cs);
+            printf("|||||Ponderacion minima:%d||Ponderacion minima PSU:%d||\n",courir[i].pond,courir[i].psu);
+            printf("|||||Primer matriculado:%f||Ultimo matriculado:%f||\n",courir[i].primo,courir[i].finale);
+            printf("|||||Cupos PSU:%d||Cupos BEA:%d|||\n",courir[i].c_psu,courir[i].c_bea);
+            aux=(courir[i].nem*nem)/100;
+            postulante=postulante+aux;
+            aux=(courir[i].rank*rank)/100;
+            postulante=postulante+aux;
+            aux=(courir[i].leng*leng)/100;
+            postulante=postulante+aux;
+            aux=(courir[i].mat*mat)/100;
+            postulante=postulante+aux;
+            aux=(courir[i].hist*hist)/100;
+            postulante=postulante+aux;
+            aux=(courir[i].cs*cs)/100;
+            postulante=postulante+aux;
+            printf("|||||");
+            if (postulante>=)
+            return;
+        }
+        i++;
+    }
+    printf("|||||No se encontraron coincidencias\n");*/
 }
 void mostrarFacultad(struct facultades faculte[]){
     printf("Prueba\n");
